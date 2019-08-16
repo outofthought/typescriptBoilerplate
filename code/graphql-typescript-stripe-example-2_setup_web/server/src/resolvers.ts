@@ -1,15 +1,11 @@
 import { IResolvers } from "graphql-tools";
 import * as bcrypt from "bcryptjs";
+
 import { User } from "./entity/User";
-import { stripe } from "./stripe";
 
 export const resolvers: IResolvers = {
-  // Query: {
-  //   hello: () => "Hello world!"
-  // },
   Query: {
     me: (_, __, { req }) => {
-      console.log(req.session);
       if (!req.session.userId) {
         return null;
       }
@@ -28,9 +24,7 @@ export const resolvers: IResolvers = {
       return true;
     },
     login: async (_, { email, password }, { req }) => {
-      //console.log(req);
-      const user = await User.findOne({ where: { email } }); //where email matches
-      //find is for all users
+      const user = await User.findOne({ where: { email } });
       if (!user) {
         return null;
       }
@@ -41,29 +35,6 @@ export const resolvers: IResolvers = {
       }
 
       req.session.userId = user.id;
-
-      return user;
-    },
-    createSubcription: async (_, { source }, { req }) => {
-      if (!req.session || !req.session.userId) {
-        throw new Error("not authenticated");
-      }
-
-      const user = await User.findOne(req.session.userId);
-
-      if (!user) {
-        throw new Error();
-      }
-
-      const customer = await stripe.customers.create({
-        email: user.email,
-        source,
-        plan: process.env.PLAN
-      });
-
-      user.stripeId = customer.id;
-      user.type = "paid"; // could be test as the name of subscription
-      await user.save();
 
       return user;
     }

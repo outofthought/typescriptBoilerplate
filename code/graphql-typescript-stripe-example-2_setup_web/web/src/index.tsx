@@ -1,10 +1,9 @@
-import "./index.css";
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+
+import registerServiceWorker from "./registerServiceWorker";
 import { Routes } from "./Routes";
 
 const client = new ApolloClient({
@@ -18,3 +17,4 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById("root") as HTMLElement
 );
+registerServiceWorker();

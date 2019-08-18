@@ -5,11 +5,12 @@ import { Redirect } from "react-router-dom";
 import { MeQuery } from "../../schemaTypes";
 import SubscribeUser from "./SubscribeUser";
 import { meQuery } from "../../graphql/queries/me";
+import ChangeCreditCard from "./ChangeCreditCard";
 
 export class Account extends React.PureComponent {
   render() {
     return (
-      <Query<MeQuery> fetchPolicy="network-only" query={meQuery}>
+      <Query<MeQuery> query={meQuery}>
         {({ data, loading }) => {
           if (loading) {
             return null;
@@ -20,7 +21,6 @@ export class Account extends React.PureComponent {
           }
 
           if (!data.me) {
-            // return <Redirect to="/login" />;
             return <Redirect to="/login" />;
           }
 
@@ -28,9 +28,13 @@ export class Account extends React.PureComponent {
             return <SubscribeUser />;
           }
 
-          // if (data.me.type === 'paid')
-          return <Redirect to="/paid-users" />;
-          // return <div>{data.me.type}</div>;
+          // if (data.me.type === "paid")
+          return (
+            <div>
+              <div>your current last 4 digits: {data.me.ccLast4}</div>
+              <ChangeCreditCard />
+            </div>
+          );
         }}
       </Query>
     );

@@ -1,5 +1,4 @@
 /* tslint:disable */
-/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -7,7 +6,6 @@
 // ====================================================
 
 export interface MeQuery_me {
-  __typename: "User";
   id: string;
   email: string;
   type: string;
@@ -19,7 +17,6 @@ export interface MeQuery {
 }
 
 /* tslint:disable */
-/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -27,7 +24,6 @@ export interface MeQuery {
 // ====================================================
 
 export interface ChangeCreditCardMutation_changeCreditCard {
-  __typename: "User";
   id: string;
   email: string;
   type: string;
@@ -44,7 +40,6 @@ export interface ChangeCreditCardMutationVariables {
 }
 
 /* tslint:disable */
-/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -52,7 +47,6 @@ export interface ChangeCreditCardMutationVariables {
 // ====================================================
 
 export interface CreateSubscriptionMutation_createSubcription {
-  __typename: "User";
   id: string;
   email: string;
   type: string;
@@ -69,7 +63,6 @@ export interface CreateSubscriptionMutationVariables {
 }
 
 /* tslint:disable */
-/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -77,7 +70,6 @@ export interface CreateSubscriptionMutationVariables {
 // ====================================================
 
 export interface LoginMutation_login {
-  __typename: "User";
   id: string;
   email: string;
   type: string;
@@ -94,7 +86,6 @@ export interface LoginMutationVariables {
 }
 
 /* tslint:disable */
-/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -111,7 +102,6 @@ export interface RegisterMutationVariables {
 }
 
 /* tslint:disable */
-/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -119,7 +109,6 @@ export interface RegisterMutationVariables {
 // ====================================================
 
 export interface UserInfo {
-  __typename: "User";
   id: string;
   email: string;
   type: string;
@@ -127,7 +116,6 @@ export interface UserInfo {
 }
 
 /* tslint:disable */
-/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 //==============================================================

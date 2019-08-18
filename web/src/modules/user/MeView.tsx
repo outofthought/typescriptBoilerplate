@@ -8,6 +8,7 @@ const meQuery = gql`
     me {
       id
       email
+      type
     }
   }
 `;

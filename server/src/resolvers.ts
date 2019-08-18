@@ -1,15 +1,12 @@
 import { IResolvers } from "graphql-tools";
 import * as bcrypt from "bcryptjs";
+
 import { User } from "./entity/User";
 import { stripe } from "./stripe";
 
 export const resolvers: IResolvers = {
-  // Query: {
-  //   hello: () => "Hello world!"
-  // },
   Query: {
     me: (_, __, { req }) => {
-      console.log(req.session);
       if (!req.session.userId) {
         return null;
       }
@@ -28,9 +25,7 @@ export const resolvers: IResolvers = {
       return true;
     },
     login: async (_, { email, password }, { req }) => {
-      //console.log(req);
-      const user = await User.findOne({ where: { email } }); //where email matches
-      //find is for all users
+      const user = await User.findOne({ where: { email } });
       if (!user) {
         return null;
       }
@@ -44,7 +39,7 @@ export const resolvers: IResolvers = {
 
       return user;
     },
-    createSubcription: async (_, { source }, { req }) => {
+    createSubcription: async (_, { source, ccLast4 }, { req }) => {
       if (!req.session || !req.session.userId) {
         throw new Error("not authenticated");
       }
@@ -62,7 +57,26 @@ export const resolvers: IResolvers = {
       });
 
       user.stripeId = customer.id;
-      user.type = "paid"; // could be test as the name of subscription
+      user.type = "paid";
+      user.ccLast4 = ccLast4;
+      await user.save();
+
+      return user;
+    },
+    changeCreditCard: async (_, { source, ccLast4 }, { req }) => {
+      if (!req.session || !req.session.userId) {
+        throw new Error("not authenticated");
+      }
+
+      const user = await User.findOne(req.session.userId);
+
+      if (!user || !user.stripeId || user.type !== "paid") {
+        throw new Error();
+      }
+
+      await stripe.customers.update(user.stripeId, { source });
+
+      user.ccLast4 = ccLast4;
       await user.save();
 
       return user;

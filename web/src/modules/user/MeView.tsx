@@ -9,6 +9,7 @@ const meQuery = gql`
       id
       email
       type
+      ccLast4
     }
   }
 `;

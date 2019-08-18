@@ -7,6 +7,5 @@ export const meQuery = gql`
       ...UserInfo
     }
   }
-
   ${userFragment}
 `;
